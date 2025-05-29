@@ -4,7 +4,7 @@ from nifty_dashboard import show_nifty_dashboard
 # Set Streamlit page config
 st.set_page_config(
     page_title="Finance Dashboard",
-    page_icon="💹",
+    page_icon="💲",
     layout="wide",
     initial_sidebar_state="expanded"
 )
