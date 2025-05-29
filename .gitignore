@@ -1,0 +1,23 @@
+# Ignore data folder and its contents
+data/
+
+data/*
+
+# Ignore Streamlit secrets
+.streamlit/secrets.toml
+secrets.toml
+
+# Ignore Python cache and virtualenv
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.env
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
