@@ -384,7 +384,7 @@ if summary is not None:
         
         **Column Names:** {', '.join(columns)}
         
-        **Data Frequency:** Daily
+        **Data Frequency:** Minute-Level
         """)
 
     # Performance warning for large datasets
