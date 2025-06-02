@@ -151,6 +151,9 @@ def show_paper_dashboard():
         feature extraction, feature selection and deep learning.
         """)
         
+        # Show the model architecture image
+        st.image("image.png", caption="DLEF-SM Model Architecture", use_container_width=True)
+        
         # Step-by-step process
         steps = [
             {

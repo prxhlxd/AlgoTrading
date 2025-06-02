@@ -12,6 +12,11 @@ def show_nifty_dashboard():
         summary, columns = load_summary()
 
     if summary is not None:
+        
+        st.markdown("The below is a dashboard for visualizing NIFTY 50 index data. It has been downloaded from (https://www.kaggle.com/datasets/debashis74017/nifty-50-minute-data).")
+        st.markdown("To verify the correctness of data, I have compared it with data available at NSE India (https://www.niftyindices.com/reports/historical-data) and found it to be accurate.")
+        st.markdown("Further, I have created a Supabase project and stored it there, for website deployment. Additionally on my computer i have stored it using TimeScaleDB for faster operations.")
+
         st.header("📊 Dataset Overview")
         col1, col2, col3, col4 = st.columns(4)
         with col1:
@@ -33,20 +38,24 @@ def show_nifty_dashboard():
         with col2:
             st.info(f"""
             **Available Columns:** {len(columns)}
+
             **Column Names:** {', '.join(columns)}
+
             **Data Frequency:** Minute-Level
+
             """)
         if summary['total_rows'] > 50000:
             st.warning(f"""
             ⚡ **Performance Note**: This dataset contains {summary['total_rows']:,} records. 
             For optimal performance, consider using shorter date ranges or aggregated views (Weekly/Monthly).
             """)
+
         st.header("🗓️ Select Analysis Period")
         col1, col2, col3 = st.columns([1, 1, 1])
         with col1:
             start_date = st.date_input(
                 "Start Date",
-                value=max(summary['start_date'].date(), summary['end_date'].date() - timedelta(days=365)),
+                value=max(summary['start_date'].date(), summary['end_date'].date() - timedelta(days=1)),
                 min_value=summary['start_date'].date(),
                 max_value=summary['end_date'].date(),
                 help="Select the start date for analysis"
@@ -61,20 +70,12 @@ def show_nifty_dashboard():
             )
         with col3:
             st.write("**Quick Select:**")
-            if st.button("Last 30 Days"):
-                st.session_state.start_date = summary['end_date'].date() - timedelta(days=30)
+            if st.button("Last 1 Day"):
+                st.session_state.start_date = summary['end_date'].date() - timedelta(days=1)
                 st.session_state.end_date = summary['end_date'].date()
                 st.rerun()
-            if st.button("Last 90 Days"):
-                st.session_state.start_date = summary['end_date'].date() - timedelta(days=90)
-                st.session_state.end_date = summary['end_date'].date()
-                st.rerun()
-            if st.button("Last 1 Year"):
-                st.session_state.start_date = summary['end_date'].date() - timedelta(days=365)
-                st.session_state.end_date = summary['end_date'].date()
-                st.rerun()
-            if st.button("Last 5 Years"):
-                st.session_state.start_date = summary['end_date'].date() - timedelta(days=1825)
+            if st.button("Last 7 Days"):
+                st.session_state.start_date = summary['end_date'].date() - timedelta(days=7)
                 st.session_state.end_date = summary['end_date'].date()
                 st.rerun()
         if start_date > end_date:
@@ -89,7 +90,7 @@ def show_nifty_dashboard():
             plot_type = st.selectbox(
                 "📈 Chart Resolution",
                 ["Daily (All Data)", "Weekly Average", "Monthly Average", "Smart Sampling"],
-                index=3,
+                index=0,
                 help="Choose how to aggregate data for faster plotting"
             )
         with col2:
