@@ -1,6 +1,4 @@
 import streamlit as st
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
 import pandas as pd
 import numpy as np
 
@@ -193,84 +191,6 @@ def show_paper_dashboard():
             {step['description']}
             """)
             st.markdown("---")
-
-    elif selected_section == "Flowchart":
-        st.markdown('<h2 class="section-header">Model Architecture Flowchart</h2>', unsafe_allow_html=True)
-        
-        # Create interactive flowchart using Plotly
-        fig = go.Figure()
-        
-        # Define positions and connections
-        nodes = [
-            {"name": "Raw Time-Series\nMarket Data", "x": 1, "y": 5, "color": "#3498db"},
-            {"name": "Improved Jellyfish-Induced\nFiltering (IJF-F)", "x": 3, "y": 5, "color": "#e74c3c"},
-            {"name": "Filtered\nData", "x": 5, "y": 5, "color": "#95a5a6"},
-            {"name": "ResNet-50\nFeature Extraction", "x": 7, "y": 5, "color": "#f39c12"},
-            {"name": "High-Dimensional\nFeature Set", "x": 9, "y": 5, "color": "#95a5a6"},
-            {"name": "Improved Black Widow\nOptimization (IBWO)", "x": 11, "y": 5, "color": "#9b59b6"},
-            {"name": "Selected\nFeatures", "x": 13, "y": 5, "color": "#95a5a6"},
-            {"name": "Deep Reinforcement Learning\nArtificial Neural Network\n(DRL-ANN)", "x": 15, "y": 5, "color": "#27ae60"},
-            {"name": "Stock Market\nPredictions", "x": 17, "y": 5, "color": "#2c3e50"},
-            {"name": "Evaluation Metrics:\n• Accuracy\n• RMSE\n• MAE\n• Sharpe Ratio", "x": 15, "y": 2, "color": "#34495e"}
-        ]
-        
-        # Add nodes
-        for node in nodes:
-            fig.add_trace(go.Scatter(
-                x=[node["x"]], 
-                y=[node["y"]], 
-                mode='markers+text',
-                marker=dict(size=60, color=node["color"], line=dict(width=2, color='white')),
-                text=node["name"],
-                textposition="middle center",
-                textfont=dict(size=10, color='white'),
-                showlegend=False,
-                hoverinfo='text',
-                hovertext=node["name"]
-            ))
-        
-        # Add arrows between nodes
-        arrows = [
-            (1, 5, 3, 5), (3, 5, 5, 5), (5, 5, 7, 5), (7, 5, 9, 5),
-            (9, 5, 11, 5), (11, 5, 13, 5), (13, 5, 15, 5), (15, 5, 17, 5),
-            (15, 5, 15, 2)
-        ]
-        
-        for arrow in arrows:
-            fig.add_annotation(
-                x=arrow[2], y=arrow[3],
-                ax=arrow[0], ay=arrow[1],
-                xref='x', yref='y',
-                axref='x', ayref='y',
-                arrowhead=2,
-                arrowsize=1,
-                arrowwidth=2,
-                arrowcolor='#2c3e50'
-            )
-        
-        fig.update_layout(
-            title="DLEF-SM Framework Architecture Flow",
-            xaxis=dict(showgrid=False, zeroline=False, showticklabels=False, range=[0, 18]),
-            yaxis=dict(showgrid=False, zeroline=False, showticklabels=False, range=[1, 6]),
-            plot_bgcolor='rgba(0,0,0,0)',
-            paper_bgcolor='rgba(0,0,0,0)',
-            height=600,
-            width=1200
-        )
-        
-        st.plotly_chart(fig, use_container_width=True)
-        
-        # Add description below flowchart
-        st.markdown("""
-        ### Framework Components Description:
-        
-        1. **Raw Time-Series Market Data**: Input financial data containing historical stock prices and market indicators
-        2. **IJF-F Preprocessing**: Noise reduction and signal decomposition for cleaner data
-        3. **ResNet-50 Feature Extraction**: Deep learning-based pattern recognition treating time-series as 1D images
-        4. **IBWO Feature Selection**: Optimization algorithm for selecting most relevant features
-        5. **DRL-ANN Prediction**: Reinforcement learning model for stock movement prediction
-        6. **Evaluation**: Performance assessment using multiple metrics across different datasets
-        """)
 
     elif selected_section == "Results & Discussion":
         st.markdown('<h2 class="section-header">Results and Discussion</h2>', unsafe_allow_html=True)
