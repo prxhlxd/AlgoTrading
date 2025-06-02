@@ -1,6 +1,6 @@
 import streamlit as st
 from nifty_dashboard import show_nifty_dashboard
-from paper_review import show_paper_dashboard
+from paper_review_p import show_paper_dashboard
 
 # Set Streamlit page config
 st.set_page_config(
